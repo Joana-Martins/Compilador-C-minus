@@ -212,18 +212,12 @@ int int_times(int l, int r) {
 }
 
 
-/*void run_cmp(AST *ast, int (*int_cmp)(int,int),int (*str_cmp)(char*,char*)) {
+void run_cmp(AST *ast, int (*int_cmp)(int,int),int (*str_cmp)(char*,char*)) {
     run_bin_op();
-    if (get_node_type(rexpr) == STR_TYPE) { // Could equally test 'lexpr' here.
-        int r = popi();
-        int l = popi();
-        pushi(str_cmp(get_string(st, l), get_string(st, r)));
-    } else if (get_node_type(rexpr) == INT_TYPE) {
-        int r = popi();
-        int l = popi();
-        pushi(int_cmp(l, r));
-    } 
-}*/
+    int r = popi();
+    int l = popi();
+    pushi(int_cmp(l, r)); 
+}
 
 int int_eq(int l, int r) {
     return l == r;
@@ -244,7 +238,7 @@ int str_lt(char *l, char *r) {
 }
 
 // ----------------------------------------------------------------------------
-// TODO
+
 void run_assign(AST *ast) {
     trace("assign");
     AST *rexpr = get_child(ast, 1);
@@ -254,7 +248,7 @@ void run_assign(AST *ast) {
     
 }
 
-// TODO
+
 void run_block(AST *ast) {
     trace("block");
     int size = get_child_count(ast);
@@ -268,7 +262,7 @@ void run_eq(AST *ast) {
     
 }
 
-// TODO
+
 void run_if(AST *ast) {
     trace("if");
     rec_run_ast(get_child(ast, 0));
@@ -280,7 +274,7 @@ void run_if(AST *ast) {
     }
 }
 
-// TODO
+
 void run_int_val(AST *ast) {
     trace("int_val");
     pushi(get_data(ast));
@@ -291,19 +285,19 @@ void run_lt(AST *ast) {
 
 }
 
-// TODO
+
 void run_minus(AST *ast) {
     trace("minus");
     run_other_arith(ast, int_minus);
 }
 
-// TODO
+
 void run_over(AST *ast) {
     trace("over");
     run_other_arith(ast, int_over);
 }
 
-// TODO
+
 void run_plus(AST *ast) {
     trace("plus");
     plus_int(ast); 
@@ -315,7 +309,7 @@ void run_program(AST *ast) {
     rec_run_ast(get_child(ast, 1)); // run block
 }
 
-// TODO
+
 void run_read(AST *ast) {
     trace("read");
     int var_idx = get_data(get_child(ast, 0));
@@ -323,7 +317,7 @@ void run_read(AST *ast) {
 }
 
 
-// TODO
+
 void run_repeat(AST *ast) {
     trace("repeat");
     int again = 1;
@@ -339,7 +333,7 @@ void run_str_val(AST *ast) {
     pushi(get_data(ast));
 }
 
-// TODO
+
 void run_times(AST *ast) {
     trace("times");
     run_other_arith(ast, int_times);
@@ -355,7 +349,7 @@ void run_var_list(AST *ast) {
     // Nothing to do, memory was already cleared upon initialization.
 }
 
-// TODO
+
 void run_var_use(AST *ast) {
     trace("var_use");
     int var_idx = get_data(ast);
@@ -363,7 +357,7 @@ void run_var_use(AST *ast) {
 
 }
 
-// TODO
+
 void run_write(AST *ast) {
     trace("write");
     write_int();
@@ -380,6 +374,7 @@ void run_i2s(AST* ast) {
 
 void rec_run_ast(AST *ast) {
     switch(get_kind(ast)) {
+    /*
         case ASSIGN_NODE:   run_assign(ast);    break;
         case EQ_NODE:       run_eq(ast);        break;
         case BLOCK_NODE:    run_block(ast);     break;
@@ -392,7 +387,7 @@ void rec_run_ast(AST *ast) {
         case PROGRAM_NODE:  run_program(ast);   break;
         case READ_NODE:     run_read(ast);      break;
         case REAL_VAL_NODE: run_real_val(ast);  break;
-        case WHILE_NODE:   run_repeat(ast);    break;
+        case WHILE_NODE:    run_repeat(ast);     break;
         case STR_VAL_NODE:  run_str_val(ast);   break;
         case TIMES_NODE:    run_times(ast);     break;
         case VAR_DECL_NODE: run_var_decl(ast);  break;
@@ -405,6 +400,7 @@ void rec_run_ast(AST *ast) {
         default:
             fprintf(stderr, "Invalid kind: %s!\n", kind2str(get_kind(ast)));
             exit(EXIT_FAILURE);
+            */
     }
 }
 
